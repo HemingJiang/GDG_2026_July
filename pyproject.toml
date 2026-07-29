@@ -1,0 +1,28 @@
+[project]
+name = "agentic-ai-workshop"
+version = "1.0.0"
+description = "GDG Mississauga — Agentic AI in 45 minutes: no buzzwords, real execution."
+requires-python = ">=3.10,<3.14"
+
+# Exact pins, not ranges. This repo has one job: work on July 30, 2026, on a
+# stranger's laptop, on bad wifi. A caret range that resolves to a new minor
+# version the morning of the talk is the failure mode we are buying insurance
+# against. uv.lock is committed for the same reason.
+dependencies = [
+    "google-adk==2.5.0",
+    "google-genai==2.14.0",
+    "jupyterlab==4.6.2",
+    "ipykernel==7.3.0",
+]
+
+[dependency-groups]
+# Only needed to re-run the notebooks headlessly (CI / presenter verification).
+# Attendees never install this.
+dev = [
+    "nbclient==0.11.0",
+    "nbformat==5.10.4",
+]
+
+[tool.uv]
+# Keep resolution reproducible across machines and Python patch versions.
+package = false

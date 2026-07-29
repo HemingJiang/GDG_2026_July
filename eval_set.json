@@ -1,0 +1,75 @@
+{
+  "description": "10 eval cases for the hardware-store agent. Ground truth comes from data/store.csv, which is small enough to verify by eye. 'expected_answer_contains' lists strings that MUST all appear in the agent's final text; 'expected_trajectory' is the tool sequence a correct agent should take. Answer and trajectory are scored separately on purpose: an agent can be right by accident.",
+  "cases": [
+    {
+      "id": "01-price-by-sku",
+      "question": "What is the price of SKU HD-2001?",
+      "expected_answer_contains": ["129.0"],
+      "expected_trajectory": ["get_product_details"],
+      "note": "Simplest case. One lookup, one fact. Note '129.0' not '129.00' — prices are parsed as floats, so that is how they render. Getting a verifier's string matching right is itself part of the work."
+    },
+    {
+      "id": "02-aisle-by-sku",
+      "question": "Which aisle is SKU HD-3001 in?",
+      "expected_answer_contains": ["C1"],
+      "expected_trajectory": ["get_product_details"],
+      "note": "Same tool, different field of the same record."
+    },
+    {
+      "id": "03-category-listing",
+      "question": "Which products do we carry in the plumbing category?",
+      "expected_answer_contains": ["PVC Pipe"],
+      "expected_trajectory": ["list_products_in_category"],
+      "note": "Category listing rather than a single-record lookup."
+    },
+    {
+      "id": "04-order-total",
+      "question": "What is the order total for a quantity of 3 units of SKU HD-1001?",
+      "expected_answer_contains": ["44.97"],
+      "expected_trajectory": ["calculate_order_total"],
+      "note": "Requires arithmetic in the tool, not in the model. 3 x 14.99 = 44.97."
+    },
+    {
+      "id": "05-stock-right-answer-wrong-trajectory",
+      "question": "For SKU HD-4002, what does the product record say about stock?",
+      "expected_answer_contains": ["98"],
+      "expected_trajectory": ["check_stock_quantity"],
+      "note": "THE IMPORTANT CASE. check_stock_quantity is the tool built to answer stock questions, but get_product_details returns the whole record including stock_qty, so the agent reaches the right number down the wrong path. Answer PASSES, trajectory FAILS. In production this is the case that breaks silently the day get_product_details stops returning stock_qty — and an answer-only eval would never have flagged it."
+    },
+    {
+      "id": "06-inventory-value",
+      "question": "What is the total value of the paint inventory we have in stock?",
+      "expected_answer_contains": ["4683.95"],
+      "expected_trajectory": ["total_inventory_value"],
+      "note": "Aggregation across 4 paint rows. Verify by hand: 2078.46 + 836.69 + 990.00 + 778.80."
+    },
+    {
+      "id": "07-search-by-name",
+      "question": "Search the catalog for a cordless drill and tell me its SKU.",
+      "expected_answer_contains": ["HD-2001"],
+      "expected_trajectory": ["find_product_by_name"],
+      "note": "Name search rather than SKU lookup."
+    },
+    {
+      "id": "08-electrical-listing",
+      "question": "List every product in the electrical category.",
+      "expected_answer_contains": ["GFCI Outlet 15A"],
+      "expected_trajectory": ["list_products_in_category"],
+      "note": "Second category case, to check the tool generalizes across argument values."
+    },
+    {
+      "id": "09-stock-of-fasteners-item",
+      "question": "How many units of SKU HD-4001 remain in stock right now?",
+      "expected_answer_contains": ["145"],
+      "expected_trajectory": ["check_stock_quantity"],
+      "note": "Same question shape as case 05 but phrased to match check_stock_quantity's docstring more closely. Contrast the two trajectories."
+    },
+    {
+      "id": "10-unanswerable",
+      "question": "Which of our suppliers has the worst on-time delivery record?",
+      "expected_answer_contains": ["don't have a tool"],
+      "expected_trajectory": [],
+      "note": "No tool can answer this and the dataset has no supplier data. A good agent declines. An agent that invents a supplier name here is worse than useless. Empty expected trajectory means 'call nothing'."
+    }
+  ]
+}

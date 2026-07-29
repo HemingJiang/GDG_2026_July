@@ -1,0 +1,21 @@
+sku,product_name,category,price,stock_qty,aisle
+HD-1001,16 oz Claw Hammer,hand tools,14.99,42,A1
+HD-1002,25 ft Tape Measure,hand tools,11.49,63,A1
+HD-1003,Adjustable Wrench 10 in,hand tools,18.25,27,A2
+HD-1004,Phillips Screwdriver Set 6 pc,hand tools,22.00,15,A2
+HD-1005,Utility Knife Retractable,hand tools,7.99,88,A3
+HD-2001,Cordless Drill 20V,power tools,129.00,12,B1
+HD-2002,Circular Saw 7-1/4 in,power tools,149.50,6,B1
+HD-2003,Orbital Sander 5 in,power tools,68.75,9,B2
+HD-2004,Shop Vacuum 6 gal,power tools,89.99,4,B2
+HD-3001,Exterior Latex Paint 1 gal White,paint,38.49,54,C1
+HD-3002,Interior Primer 1 gal,paint,26.99,31,C1
+HD-3003,Paint Roller Kit 9 in,paint,13.75,72,C2
+HD-3004,Painters Tape 1.88 in,paint,6.49,120,C2
+HD-4001,Wood Screws 2 in 100 ct,fasteners,8.95,145,D1
+HD-4002,Drywall Anchors 50 ct,fasteners,5.49,98,D1
+HD-4003,Carriage Bolts 3 in 25 ct,fasteners,12.30,37,D2
+HD-5001,LED Shop Light 4 ft,electrical,34.99,23,E1
+HD-5002,Extension Cord 50 ft,electrical,42.00,18,E1
+HD-5003,GFCI Outlet 15A,electrical,19.99,64,E2
+HD-6001,PVC Pipe 2 in x 10 ft,plumbing,16.80,45,F1
